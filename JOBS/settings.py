@@ -136,6 +136,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-GEOIP_PATH = os.path.join(BASE_DIR, 'includes/geolite')
+GEOIP_PATH = os.path.join(BASE_DIR, 'geolite')
 MPTT_ADMIN_LEVEL_INDENT = 20
 TAGGIT_CASE_INSENSITIVE = True

@@ -3,5 +3,6 @@
 __pycache__
 /static
 /media
+/JobPortalCSS
 .env
 .DS_Store
