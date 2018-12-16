@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block 'title' %}{{title}}{% endblock %}JobPortal</title>
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="icon" href="{% static 'images/jobs-open.png' %}" type="image/png">
+	<link rel="stylesheet" href="{% static 'css/jobportalcss.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="content">
+
+    {% include 'header.html' %}
+    <div class="columns is-desktop is-marginless is-paddingless">
+        <main class="column is-9-desktop">
+            <div class="section">
+                {% block 'main' %}{% endblock %}
+            </div>
+        </main>
+        <aside class="column is-3-desktop has-background-light">
+            <div class="section">
+                {% block 'aside' %}{% endblock %}
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ui.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+           
+
+        });
+    </script>
+    {% block 'scripts' %}{% endblock %}
+</body>
+</html>

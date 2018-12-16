@@ -1,0 +1,29 @@
+{% load static %}
+
+<nav class="navbar is-white has-shadow is-fixed-top">
+	<div class="navbar-brand">
+		<a class="navbar-item has-background-black" href="{% url 'home' %}"><h3 class="is-marginless has-text-white">JobPortal</h3></a>
+		<a class="navbar-item is-uppercase" href="">{{ request.session.COUNTRY }}</a>
+	</div>
+</nav>
+
+<header class="hero is-white is-hidden">
+	<div class="hero-body" style="padding: 1.5rem">
+		<div class="container">
+			<div class="columns is-vcentered is-desktop">
+				<div class="column is-4-desktop has-text-centered is-hidden-touch">
+					<img src="{% static 'images/jobs.png' %}">
+				</div>
+				<div class="column is-8-desktop">
+					<p class="title is-2">Looking for your dream job?</p>
+					<p class="subtitle is-4">We have one for you!</p>
+					<div class="select">
+						<select>
+							<option>Select Category</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+</header>

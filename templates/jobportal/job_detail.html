@@ -1,0 +1,9 @@
+{% extends 'master.html' %}
+{% block 'main' %}
+
+<h1 class="title">{{ job.title }}</h1>
+<p class="subtitle">Company: {{ job.company }}</p><hr>
+<h3>Job Descriptions</h3>
+<div class="content">{{ job.desc|safe }}</div>
+
+{% endblock %}

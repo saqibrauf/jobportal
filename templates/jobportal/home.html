@@ -1,0 +1,9 @@
+{% extends 'master.html' %}
+
+{% block 'main' %}
+
+{% for job in all_jobs %}
+	<p class="is-marginless is-capitalize"><a href="{% url 'job_detail' job.id job.slug %}">{{ job.title }}</a></p>
+{% endfor %}
+
+{% endblock %}
