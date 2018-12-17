@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from jobportal.models import Location, Company, Job
-
-def glassdoor(url):
+#url = 'https://www.glassdoor.com/Job/new-york-jobs-SRCH_IL.0,8_IC1132348.htm'
+def scraper(url):
     total = 1
     headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                'accept-encoding': 'gzip, deflate, sdch, br',
@@ -24,10 +24,10 @@ def glassdoor(url):
     parser = html.fromstring(response.text)
     soup = BeautifulSoup(response.text, "lxml")
     number_box = soup.find("div", attrs={"class": "cell middle hideMob padVertSm"})
-    number = number_box.text.strip()
-    total = int(number[9:]) + 1
+    #number = number_box.text.strip()
+    #total = int(number[9:]) + 1
 
-    for i in range(1,total):
+    for i in range(1,30):
 
         job_litsting_url = job_listing_main+"_IP"+str(i)+".htm"
         print(job_litsting_url)
