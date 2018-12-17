@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 import re
 from jobportal.models import Location, Company, Job
 
-def glassdoor(url, total):
-    #total = 1
+def glassdoor(url):
+    total = 1
     headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                'accept-encoding': 'gzip, deflate, sdch, br',
                'accept-language': 'en-GB,en-US;q=0.8,en;q=0.6',
@@ -23,9 +23,9 @@ def glassdoor(url, total):
     response = requests.post(job_litsting_url, headers=headers)
     parser = html.fromstring(response.text)
     soup = BeautifulSoup(response.text, "lxml")
-    #number_box = soup.find("div", attrs={"class": "cell middle hideMob padVertSm"})
-    #number = number_box.text.strip()
-    #total = int(number[9:]) + 1
+    number_box = soup.find("div", attrs={"class": "cell middle hideMob padVertSm"})
+    number = number_box.text.strip()
+    total = int(number[9:]) + 1
 
     for i in range(1,total):
 
