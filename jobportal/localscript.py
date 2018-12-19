@@ -2,8 +2,7 @@ from lxml import html, etree
 import requests
 from bs4 import BeautifulSoup
 import re
-from jobportal.models import Location, Company, Job
-#url = 'http://www.glassdoor.com/Job/new-york-jobs-SRCH_IL.0,8_IC1132348.htm'
+#url = 'https://www.glassdoor.com/Job/new-york-jobs-SRCH_IL.0,8_IC1132348.htm'
 def scraper(url):
     total = 1
     headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -20,7 +19,7 @@ def scraper(url):
     job_listing_main = job_litsting_url.replace('.htm', '')
     base_url = "http://www.glassdoor.com"
 
-    response = requests.get(job_litsting_url)#, headers=headers
+    response = requests.get(job_litsting_url, headers=headers)
     parser = html.fromstring(response.text)
     soup = BeautifulSoup(response.text, "lxml")
     number_box = soup.find("div", attrs={"class": "cell middle hideMob padVertSm"})
@@ -31,7 +30,7 @@ def scraper(url):
 
         job_litsting_url = job_listing_main+"_IP"+str(i)+".htm"
         print(job_litsting_url)
-        response = requests.get(job_litsting_url)#, headers=headers
+        response = requests.get(job_litsting_url, headers=headers)
         parser = html.fromstring(response.text)
 
 
@@ -64,7 +63,7 @@ def scraper(url):
 
             #Extracting Description
             try:
-                response = requests.get(base_url+job_url)#, headers=headers
+                response = requests.get(base_url+job_url, headers=headers)
                 soup = BeautifulSoup(response.text, "html.parser")
                 desc_box = soup.find("div", attrs={"class": "jobDescriptionContent desc module pad noMargBot"})
                 desc = desc_box
@@ -72,9 +71,9 @@ def scraper(url):
                 pass
 
             jobs = {
-                "Name": job_name,
-                "Company": company,
-                "City": city,
+                "Name": str(job_name),
+                "Company": str(company),
+                "City": str(city),
                 "Url": job_url,
                 "Description": str(desc)
             }
@@ -83,28 +82,6 @@ def scraper(url):
             joburl = re.findall(r'jobListingId=.*', job_url)[0]
             joburl = joburl.replace('jobListingId=', '')
 
-            #Check If Company Exists
-            try:
-                check_company=Company.objects.get(name__iexact=company)
-                company_id = check_company.id
-            except:
-                new_company = Company.objects.create(name=company)
-                new_company.save()
-                check_company=Company.objects.get(name__iexact=company)
-                company_id = check_company.id
-
-            #Check If City Exists
-            try:
-                check_city=Location.objects.get(name__iexact=city)
-                city_id = check_city.id
-            except:
-                pass
-
-            #Check If Job Already Exists
-            try:
-                check_job = Job.objects.get(job_url__iexact=joburl)
-                print ('Job Already Exists')
-            except:
-                add_new_job = Job.objects.create(title=job_name, desc=desc, company=Company.objects.get(id=company_id), location=Location.objects.get(id=city_id), job_url=joburl)
-                add_new_job.save()
-                print (job_name + ' -> ' + city + ' -> ' + company + ' Added To Database')
+            
+            r = requests.post('http://ourjobportal.pythonanywhere.com/job-posting', data = {'job_name': job_name, 'company' : company, 'city' : city, 'joburl' : str(joburl), 'desc' : desc})
+            print(r.text)
