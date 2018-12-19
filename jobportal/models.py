@@ -78,7 +78,7 @@ class Company(models.Model):
 		self.name = self.name.title()
 		self.slug = slugify(self.name)
 		if not self.user:
-			self.user = User.objects.get(username='jobportal')
+			self.user = User.objects.get(username='ourjobportal')
 		super().save(*args, **kwargs)
 
 ##################################################################################################################################
